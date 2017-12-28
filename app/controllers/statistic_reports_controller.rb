@@ -1,7 +1,6 @@
 class StatisticReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_club, only: :create
-  before_action :check_user, only: :create
   before_action :new_statistic, only: :create
 
   def create
