@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     current_user == user
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = exception.message
+    redirect_to request.referer || root_url
+  end
+
   def correct_user
     @user = User.find_by id: params[:id]
     unless current_user?(@user)

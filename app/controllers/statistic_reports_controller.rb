@@ -1,4 +1,4 @@
-class StatisticReportsController < ApplicationController
+class StatisticReportsController < ClubsController
   before_action :authenticate_user!
   before_action :load_club, only: :create
   before_action :new_statistic, only: :create
@@ -23,12 +23,6 @@ class StatisticReportsController < ApplicationController
     @club = Club.find_by id: params[:statistic_report][:club_id]
     return if @club
     flash[:danger] = t "create_statistic_report_fail"
-    redirect_to request.referer || root_url
-  end
-
-  def check_user
-    return if can? :is_admin, @club
-    flash[:warning] = t "manager_require"
     redirect_to request.referer || root_url
   end
 
